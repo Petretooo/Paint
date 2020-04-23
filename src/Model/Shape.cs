@@ -13,13 +13,13 @@ namespace Draw
 
 
 
-		List<Point> polygonPoints;
-		public List<Point> PolygonPoints
+		List<PointF> polygonPoints;
+		public List<PointF> PolygonPoints
 		{
 			get { return polygonPoints; }
 		}
 
-		public Shape(List<Point> PolygonPoints)
+		public Shape(List<PointF> PolygonPoints)
         {
 			this.polygonPoints = PolygonPoints;
         }

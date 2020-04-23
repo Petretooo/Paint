@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,10 @@ namespace Draw.src.Model
     class PolygonShape : Shape
     {
 
-		public PolygonShape(RectangleF rect) : base(rect)
+        PointF[] points;
+
+
+        public PolygonShape(RectangleF rect) : base(rect)
 		{
 
 		}
@@ -18,7 +22,7 @@ namespace Draw.src.Model
 		{
 		}
 
-        public PolygonShape(List<Point> PolygonPoints) : base(PolygonPoints)
+        public PolygonShape(List<PointF> PolygonPoints) : base(PolygonPoints)
         {
             
         }
@@ -26,24 +30,14 @@ namespace Draw.src.Model
 
         public override bool Contains(PointF point)
         {
-            foreach(Point p in base.PolygonPoints){
-                if (!base.Contains(p))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            return true;
+            return CalculatePoint.IsPointInPolygon(points, point);
         }
 
         public override void DrawSelf(Graphics grfx)
 		{
             Random rnd = new Random();
 
-            Point[] points = base.PolygonPoints.ToArray();
+            points = base.PolygonPoints.ToArray();
 
 
             base.DrawSelf(grfx);

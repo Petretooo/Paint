@@ -126,15 +126,15 @@ namespace Draw
 		public void addRandomPolygon()
 		{
 			Random rnd = new Random();
-			Point point1 = new Point(rnd.Next(100, 700), rnd.Next(100, 700));
-			Point point2 = new Point(rnd.Next(100, 700), rnd.Next(100, 700));
-			Point point3 = new Point(rnd.Next(100, 700), rnd.Next(100, 700));
-			Point point4 = new Point(rnd.Next(100, 700), rnd.Next(100, 700));
-			Point point5 = new Point(rnd.Next(100, 700), rnd.Next(100, 700));
+			PointF x = new PointF(rnd.Next(100, 1000), rnd.Next(100, 600));
+			PointF y = new PointF(rnd.Next(100, 700), rnd.Next(100, 700));
+			PointF point3 = new PointF(rnd.Next(100, 700), rnd.Next(100, 700));
+			PointF point4 = new PointF(rnd.Next(100, 700), rnd.Next(100, 700));
+			PointF point5 = new PointF(rnd.Next(100, 700), rnd.Next(100, 700));
 
-			List<Point> points = new List<Point>();
-			points.Add(point1);
-			points.Add(point2);
+			List<PointF> points = new List<PointF>();
+			points.Add(x);
+			points.Add(y);
 			points.Add(point3);
 			points.Add(point4);
 			points.Add(point5);
