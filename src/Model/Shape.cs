@@ -1,28 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace Draw
 {
 	/// <summary>
 	/// Базовия клас на примитивите, който съдържа общите характеристики на примитивите.
 	/// </summary>
+	[Serializable]
 	public abstract class Shape
 	{
 		#region Constructors
 
 
-
-		List<PointF> polygonPoints;
-		public List<PointF> PolygonPoints
-		{
-			get { return polygonPoints; }
-		}
-
-		public Shape(List<PointF> PolygonPoints)
-        {
-			this.polygonPoints = PolygonPoints;
-        }
 		
 		public Shape()
 		{
@@ -41,7 +32,12 @@ namespace Draw
 			this.Width = shape.Width;
 			this.Location = shape.Location;
 			this.rectangle = shape.rectangle;
+
 			
+
+			this.BorderWidth = shape.borderWidth;
+			this.BorderColor = shape.BorderColor;
+			this.Opacity = shape.Opacity;
 			this.FillColor =  shape.FillColor;
 		}
 
@@ -54,7 +50,32 @@ namespace Draw
 			set { rectangle = value; }
 		}
 
+
 		
+		public virtual float Top
+		{
+			get { return Rectangle.Top; }
+		}
+		public virtual float Bottom
+		{
+			get { return Rectangle.Bottom; }
+		}
+		public virtual float Right
+		{
+			get { return Rectangle.Right; }
+		}
+		public virtual float Left
+		{
+			get { return Rectangle.Left; }
+		}
+		public virtual float X
+		{
+			get { return Rectangle.X; }
+		}
+		public virtual float Y
+		{
+			get { return Rectangle.Y; }
+		}
 		
 		/// <summary>
 		/// Широчина на елемента.
@@ -79,7 +100,15 @@ namespace Draw
 			get { return Rectangle.Location; }
 			set { rectangle.Location = value; }
 		}
-		
+		private string name;
+		public virtual string Name
+		{
+			get { return name; }
+			set { name = value; }
+		}
+
+
+
 		/// <summary>
 		/// Цвят на елемента.
 		/// </summary>
@@ -109,8 +138,40 @@ namespace Draw
 
 
 		#endregion
+		private float rotate;
+		public virtual float Rotate
+		{
+			get { return rotate; }
+			set { this.rotate = value; }
+		}
 
+		private float scale;
+		public virtual float Scale 
+		{
+			get { return scale; }
+			set { this.scale = value; }
+		}
 
+		public virtual void Rotation(Graphics grfx)
+		{
+
+		}
+
+		public virtual void Scaling(Graphics grfx)
+		{
+
+		}
+
+/*		public virtual void RotateShape(Matrix m)
+		{
+			
+		}
+
+		public virtual void ScaleShape(Matrix m)
+		{
+
+		}*/
+		
 		/// <summary>
 		/// Проверка дали точка point принадлежи на елемента.
 		/// </summary>
@@ -131,6 +192,22 @@ namespace Draw
 			
 			// shape.Rectangle.Inflate(shape.BorderWidth, shape.BorderWidth);
 		}
-		
+
+		private float angle;
+		public virtual float Angle
+		{
+			get { return angle; }
+			set { angle = value; }
+		}
+		public virtual void RotateShape(Graphics grfx)
+		{
+
+			grfx.TranslateTransform(Rectangle.X + Rectangle.Width / 2, Rectangle.Y + Rectangle.Height / 2);
+			grfx.RotateTransform(Angle);
+
+			grfx.TranslateTransform(-(Rectangle.X + Rectangle.Width / 2), -(Rectangle.Y + Rectangle.Height / 2));
+
+		}
+
 	}
 }

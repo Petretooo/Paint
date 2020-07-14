@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 
 namespace Draw.src.Model
 {
-    class EllipseShape : Shape
+	[Serializable]
+	class EllipseShape : Shape
     {
 
 		public EllipseShape(RectangleF rect):base(rect)
@@ -18,28 +20,31 @@ namespace Draw.src.Model
 		{
 
 		}
+
 		
 		public override bool Contains(PointF point)
 		{
-			if (base.Contains(point))
-				// Проверка дали е в обекта само, ако точката е в обхващащия правоъгълник.
-				// В случая на правоъгълник - директно връщаме true
-				return true;
-			else
-				// Ако не е в обхващащия правоъгълник, то неможе да е в обекта и => false
-				return false;
+			GraphicsPath path = new GraphicsPath();
+			path.AddEllipse(new RectangleF(Rectangle.X, Rectangle.Y, 100, 100));
+			bool a = path.IsVisible(point);
+			return a;
+
 		}
 
-		/// <summary>
-		/// Частта, визуализираща конкретния примитив.
-		/// </summary>
+
+
 		public override void DrawSelf(Graphics grfx)
 		{
 			base.DrawSelf(grfx);
 
+			base.RotateShape(grfx);
 			grfx.FillEllipse(new SolidBrush(Color.FromArgb(Opacity, FillColor)), Rectangle.X, Rectangle.Y, Rectangle.Width, Rectangle.Height);
 			grfx.DrawEllipse(new Pen(Color.FromArgb(Opacity,BorderColor), BorderWidth), Rectangle.X, Rectangle.Y, Rectangle.Width, Rectangle.Height);
+			
 
+
+
+			grfx.ResetTransform();
 		}
 	}
 }

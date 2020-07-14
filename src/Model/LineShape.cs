@@ -7,14 +7,15 @@ using System.Text;
 
 namespace Draw.src.Model
 {
-    class LineShape : Shape
+	[Serializable]
+	public class LineShape : Shape
     {
 
 		public LineShape(RectangleF rect) : base(rect)
 		{
 		}
 
-		public LineShape(RectangleShape rectangle) : base(rectangle)
+		public LineShape(LineShape rectangle) : base(rectangle)
 		{
 		}
 
@@ -29,14 +30,19 @@ namespace Draw.src.Model
 		public override void DrawSelf(Graphics grfx)
 		{
 			base.DrawSelf(grfx);
+			base.RotateShape(grfx);
 			//grfx.DrawLine(Pens.Black, Rectangle.X, Rectangle.Y, Rectangle.Width, Rectangle.Height);
-			
-			Pen pen = new Pen(Color.Black, 6);
+
+			Pen pen = new Pen(Color.FromArgb(Opacity, FillColor), BorderWidth);
 			pen.StartCap = LineCap.RoundAnchor;
 			pen.EndCap = LineCap.RoundAnchor;
-			grfx.DrawLine(pen, Rectangle.X, Rectangle.Y, Rectangle.Width, Rectangle.Height);
 
+			Point point1 = new Point((int)Rectangle.X + ((int)Rectangle.Width), (int)Rectangle.Y);
+			Point point2 = new Point((int)Rectangle.X, (int)(Rectangle.Y + Rectangle.Height));
+			//grfx.Transform = matrix;
+			grfx.DrawLine(pen, point1, point2);
 
+			grfx.ResetTransform();
 		}
 	}
 }

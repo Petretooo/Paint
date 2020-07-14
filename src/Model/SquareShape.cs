@@ -6,14 +6,15 @@ using System.Text;
 
 namespace Draw.src.Model
 {
-    class SquareShape : Shape
+	[Serializable]
+	public class SquareShape : Shape
     {
 		public SquareShape(RectangleF rect) : base(rect)
 		{
 
 		}
 
-		public SquareShape(RectangleShape rectangle) : base(rectangle)
+		public SquareShape(SquareShape rectangle) : base(rectangle)
 		{
 		}
 
@@ -31,11 +32,14 @@ namespace Draw.src.Model
 		public override void DrawSelf(Graphics grfx)
 		{
 			base.DrawSelf(grfx);
+			base.RotateShape(grfx);
 
+			//grfx.Transform = matrix;
 
 			grfx.FillRectangle(new SolidBrush(Color.FromArgb(Opacity, FillColor)), Rectangle.X, Rectangle.Y, Rectangle.Width, Rectangle.Height);
 			grfx.DrawRectangle(new Pen(Color.FromArgb(Opacity, BorderColor), BorderWidth), Rectangle.X, Rectangle.Y, Rectangle.Width, Rectangle.Height);
 
+			grfx.ResetTransform();
 		}
 	}
 }
